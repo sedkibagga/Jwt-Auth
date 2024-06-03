@@ -14,15 +14,14 @@ const setGoal = asyncHandler(async (req, res) => {
     } else if (!req.user) {
         throw new Error('User not found');
     } else {
-        goal = await Goal.findOne({ user: req.user.id }); 
-        if (goal) {
-            throw new Error('Goal already exists');
-        } else {
+        if (req.user) {
             goal = await Goal.create({
                 text: text,
                 user: req.user.id
             });
-        }
+        } 
+        
+        
     }
     res.status(200).json(goal);
 });

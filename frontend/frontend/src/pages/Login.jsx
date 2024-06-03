@@ -10,6 +10,11 @@ import { useNavigate } from 'react-router-dom' ;
 import { useEffect } from 'react' ; 
 
 function Login() { 
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  }); 
+  const{email , password} = loginData ; 
   const navigate = useNavigate() ; 
   const onSubmit = (e) => {
     e.preventDefault() ; 
@@ -21,11 +26,7 @@ function Login() {
   const onChange = (e) => {
     setLoginData({...loginData , [e.target.name] : e.target.value})
   } ; 
-  const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
-  }); 
-  const{email , password} = loginData ; 
+  
   const {user , isLoading , isError , isSuccess , message } = useSelector((state) => state.auth) ; 
   const dispatch = useDispatch() ;  
   useEffect(() => {
@@ -36,7 +37,7 @@ function Login() {
     if (isError) {
       toast.error(message);
     }
-  }, [user, navigate , isLoading , isError , isSuccess , message]);
+  }, [user, navigate , isLoading , isError , isSuccess , message , dispatch]);
 if (isLoading) {
   return <Spinner />;
 }
